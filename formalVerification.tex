@@ -1,0 +1,8 @@
+We evaluated 3 State-Of-The-Art (SOTA) neural network verifiers: $\alpha$-$\beta$-CROWN, Marabou, and Venus2. We apply the tools to formally verify the properties of 4 Collins neural network applications.
+
+$\alpha$-$\beta$-CROWN is based on abstract interpretation. It can efficiently propagate linear bound through a NN. It utilize GPUs to accelerate its performance. It has been ranked as the top NN verifier in recent VNNCOMP. It supports many activation functions (e.g., ReLU, tanh, sigmoid).
+It supports the verification of a property that is encoded as linear constraints of NN outputs.
+
+Marabou is based on Satisfiability Modulo Theories (SMT) and supports NNs with piecewise linear activation functions. It can answer queries about NN properties by transforming each query to a satisfiability problem. The properties are encoded as linear constraints of inputs and outputs.
+
+Venus2 is based on Mixed-Integer-Linear-Programming (MILP) and supports ReLU NNs. It also requires the property to be encoded as linear constraints of NN outputs.

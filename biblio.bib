@@ -1140,3 +1140,82 @@ keywords = {Deep learning testing, differential testing, whitebox testing},
 location = {Shanghai, China},
 series = {SOSP '17}
 }
+
+@misc{GPT4,
+      title={{GPT}-4 {T}echnical {R}eport}, 
+      author={OpenAI},
+      year={2023},
+      eprint={2303.08774},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/pdf/2303.08774.pdf}
+}
+
+@article{Gopinath2019FindingII,
+  title={Finding Invariants in Deep Neural Networks},
+  author={Divya Gopinath and Ankur Taly and Hayes Converse and Corina S. Păsăreanu},
+  journal={ArXiv},
+  year={2019},
+  volume={abs/1904.13215},
+  url={https://api.semanticscholar.org/CorpusID:140218354}
+}
+
+@inproceedings {8952519,
+author = {D. Gopinath and H. Converse and C. Pasareanu and A. Taly},
+booktitle = {2019 34th IEEE/ACM International Conference on Automated Software Engineering (ASE)},
+title = {Property Inference for Deep Neural Networks},
+year = {2019},
+volume = {},
+issn = {},
+pages = {797-809},
+abstract = {We present techniques for automatically inferring formal properties of feed-forward neural networks. We observe that a significant part (if not all) of the logic of feed forward networks is captured in the activation status (on or off) of its neurons. We propose to extract patterns based on neuron decisions as preconditions that imply certain desirable output property e.g., the prediction being a certain class. We present techniques to extract input properties, encoding convex predicates on the input space that imply given output properties and layer properties, representing network properties captured in the hidden layers that imply the desired output behavior. We apply our techniques on networks for the MNIST and ACASXU applications. Our experiments highlight the use of the inferred properties in a variety of tasks, such as explaining predictions, providing robustness guarantees, simplifying proofs, and network distillation.},
+keywords = {neurons;feeds;biological neural networks;feature extraction;task analysis;robustness;safety},
+doi = {10.1109/ASE.2019.00079},
+url = {https://doi.ieeecomputersociety.org/10.1109/ASE.2019.00079},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {nov}
+}
+
+@article{10.1007/s10703-021-00363-7,
+author = {Katz, Guy and Barrett, Clark and Dill, David L. and Julian, Kyle and Kochenderfer, Mykel J.},
+title = {Reluplex: a calculus for reasoning about deep neural networks},
+year = {2021},
+issue_date = {Feb 2022},
+publisher = {Kluwer Academic Publishers},
+address = {USA},
+volume = {60},
+number = {1},
+issn = {0925-9856},
+url = {https://doi.org/10.1007/s10703-021-00363-7},
+doi = {10.1007/s10703-021-00363-7},
+abstract = {Deep neural networks have emerged as a widely used and effective means for tackling complex, real-world problems. However, a major obstacle in applying them to safety-critical systems is the great difficulty in providing formal guarantees about their behavior. We present a novel, scalable, and efficient technique for verifying properties of deep neural networks (or providing counter-examples). The technique is based on the simplex method, extended to handle the non-convex Rectified Linear Unit (ReLU) activation function, which is a crucial ingredient in many modern neural networks. The verification procedure tackles neural networks as a whole, without making any simplifying assumptions. We evaluated our technique on a prototype deep neural network implementation of the next-generation airborne collision avoidance system for unmanned aircraft (ACAS Xu). Results show that our technique can successfully prove properties of networks that are an order of magnitude larger than the largest networks that could be verified previously.},
+journal = {Form. Methods Syst. Des.},
+month = {jul},
+pages = {87–116},
+numpages = {30},
+keywords = {Satisfiability modulo theories, Verification, Neural networks}
+}
+
+@inproceedings{10.1007/978-3-030-62822-2_4,
+author = {Feng, Weizhi and Huang, Cheng-Chao and Turrini, Andrea and Li, Yong},
+title = {Modelling and Implementation of Unmanned Aircraft Collision Avoidance},
+year = {2020},
+isbn = {978-3-030-62821-5},
+publisher = {Springer-Verlag},
+address = {Berlin, Heidelberg},
+url = {https://doi.org/10.1007/978-3-030-62822-2_4},
+doi = {10.1007/978-3-030-62822-2_4},
+abstract = {With the increasing application of unmanned aircraft in civil airspace, collision avoidance systems for unmanned aircraft are becoming more and more important and valuable. An ideal collision avoidance system gives the aircraft an optimal strategy for choosing flight actions to avoid collision risks when it detects other aircraft nearby. Currently the general approach to generating collision avoidance logics is to model the problem as a partially observable Markov decision process (POMDP), and then synthesize an optimal policy. However, the existing systems require the precise position information of the intruder aircraft to generate the avoidance actions and ignore the effects of the flight path changes, which may result in its lower robustness or a wasting of flying resources.In this paper, we construct a collision avoidance system based on limited information that reduces the variations from the original flight path. We use POMDPs to model the collision avoidance system with only the destination information of our own aircraft and rough information about the intruder position and generate the collision resolution logic. We implement the collision avoidance module, embed it into the real unmanned aircraft system over PX4 flight control platform and demonstrate the effectiveness of our system by flight simulation.},
+booktitle = {Dependable Software Engineering. Theories, Tools, and Applications: 6th International Symposium, SETTA 2020, Guangzhou, China, November 24–27, 2020, Proceedings},
+pages = {52–69},
+numpages = {18},
+location = {Guangzhou, China}
+}
+
+@misc{safednn-nasa,
+  author        = "{Safe Deep Learning for Space Systems Group, NASA Ames Research Center}",
+  title         = "{ACASX Prophecy parallel experiments}",
+  howpublished  = "\href{https://github.com/safednn-nasa/Prophecy/blob/master/ACASX_Prophecy_parallel_experiments.ipynb}{GitHub Repository}",
+  note          = "{Accessed: May 2, 2024}",
+}

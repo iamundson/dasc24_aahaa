@@ -1,0 +1,16 @@
+The Prophecy approach\cite{Gopinath2019FindingII,8952519}, aims to derive invariant properties of feed-forward neural networks, showcasing the networks' capacity to learn decision logic from neuron activation patterns. The method involves identifying decision patterns as network invariants connected to specific outputs, achieved through extracting input invariants and layer invariants. Formal verification, utilizing decision procedures like Reluplex\cite{10.1007/s10703-021-00363-7}, aims to ensure that given invariants lead to desired outcomes, enhancing explainability, robustness, and aiding in network simplification and distillation. However, scalability issues, particularly with formal verification, pose significant challenges, such as timeouts when dealing with large-scale networks. 
+
+In evaluating the Prophcey formal verification apprach, we aimed to apply it to one of our smaller FTO applications, ARR, which navigates autonomous aircraft around hazardous weather conditions. 
+Challenges like scalability, lack of modularity, and outdated documentation hindered progress. An updated version of Prophecy\cite{safednn-nasa} integrated Marabou for the formal verification step, and a parallel execution algorithm to enhance scalability, addressing some of the challenges encountered. Initial tests on ACAS-Xu~\cite{10.1007/978-3-030-62822-2_4} showed promising results, with Marabou successfully verifying some properties in a significantly reduced timeframe compared to applying Reluplex directly. 
+
+For example, Reulplex may need 12 hours while trying to verify the Clear of Conflict (CoC) property over certain domain invariants of large size. However, the tool successfully verified the same ACAS-Xu CoC properties in approximately 3.5 hours using Marabou over similar invariants.
+
+The most resource-intensive step in the formal verification process involved refining initial convex hull guesses, aiming to eliminate adversarial examples and ensure robust invariants. 
+
+We found that optimizing Prophecy's performance is crucial before deploying the algorithm in our or other more extensive settings to improve feasibility, where the complexity of the formal verification step increases substantially compared to ACAS-Xu.
+
+Techniques like using $\alpha$-$\beta$-CROWN could enhance the refinement step, albeit with limitations. %For instance, unlike Marabou, $\alpha$-$\beta$-CROWN may not handle linear input constraints.
+Additionally, more efforts are needed to resolve issues with corrupted invariants.
+
+
+Future directions involve exploring transformer architecture, such as  GPT embedding models\cite{GPT4} and classifiers, to improve the quality of the initial convex hull approximations and reduce the need for redundant formal checks. If successful, this approach could offer scalable solutions for larger datasets and dimensions, enhancing the generalizability of formal verification methods in neural network analysis.

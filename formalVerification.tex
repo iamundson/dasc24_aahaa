@@ -2,19 +2,18 @@ The main purpose of using formal verification in NN certification is to provide 
 We evaluated 3 State-Of-The-Art (SOTA) neural network (NN) verifiers: $\alpha$-$\beta$-CROWN, Marabou, and Venus2. We apply the tools to formally verify the properties of 4 Collins neural network applications. A property is an assertion about the mathematical characteristic of a neural network, often in forms of relationship of input and output relationship.
 
 \noindent{\bf Verification Tools}: 
-$\alpha$-$\beta$-CROWN reduces the property verification to prove or disprove whether the  outputs of a NN are always non-negative, given the input bounds. The NN is created by adding an linear output layer to the original NN, which models the property. It uses abstract interpretation techniques to efficiently propagate linear bound of neuron values through a NN. Its branch-and-bound approach enables parallelization and utilizes GPUs to accelerate its performance. It has been ranked as the top NN verifier in recent International Verification of Neural Networks Competition, VNN-COMP. It supports many forms of activation functions (e.g., ReLU, tanh, sigmoid).
-It supports the verification of a property that is encoded as linear constraints of NN outputs.
+$\alpha$-$\beta$-CROWN \cite{abcrown} reduces the property verification to prove or disprove whether the  outputs of a NN are always non-negative, given the input bounds. The NN is created by adding an linear output layer to the original NN, which models the property. It uses abstract interpretation techniques to efficiently propagate linear bound of neuron values through a NN. Its branch-and-bound approach enables parallelization and utilizes GPUs to accelerate its performance. It has been ranked as the top NN verifier in recent International Verification of Neural Networks Competition, VNN-COMP. It supports many forms of activation functions (e.g., ReLU, tanh, sigmoid). It supports the verification of a property that is encoded as linear constraints of NN outputs.
 
-Marabou is based on satisfiability modulo theories (SMT). It transforms a NN property verification problem to a satisfiability (SAT) instance, which consists of a set of linear and non-linear constraints (the activation functions) on the neuron values. The property is falsified if and only if  there exists an assignment of neuron values that satisfies all the constraints. Marabou supports NNs with piecewise linear activation functions. It accepts properties that are encoded as linear constraints of both inputs and outputs. We used the Marabou2 dated March 2024.
+Marabou \cite{marabou} \cite{marabou2} is based on satisfiability modulo theories (SMT). It transforms a NN property verification problem to a satisfiability (SAT) instance, which consists of a set of linear and non-linear constraints (the activation functions) on the neuron values. The property is falsified if and only if  there exists an assignment of neuron values that satisfies all the constraints. It accepts properties that are encoded as linear constraints of both inputs and outputs. We used Marabou2 dated March 2024.
 
-Venus formulates a NN verification problem as a Mixed-Integer-Linear-Program (MILP). The property is falsified if and only if the corresponding program is feasible. The MILP can be transformed to a linear program that can be solved in polynomial-time. Venus2 leverages the efficient, Commercial-Off-The-Shelf (COTS) linear program solver, Gurobi. It verifies NNs that only use piecewise linear activation function. It requires the property to be encoded as linear constraints of NN outputs. We used the Venus2 dated March 2024.
+Venus \cite{venus} formulates a NN verification problem as a Mixed-Integer-Linear-Program (MILP). The property is falsified if and only if the corresponding program is feasible. The MILP can be transformed to a linear program that can be solved in polynomial-time. Venus2 leverages the efficient, Commercial-Off-The-Shelf (COTS) linear program solver, Gurobi. It verifies NNs that only use piecewise linear activation function. It requires the property to be encoded as linear constraints of NN outputs. We used Venus2 dated March 2024.
 
 \noindent{\bf Verification Process}: Our verification process mainly consists of 3 steps. First, we formulate a number of formal properties. They are usually derived from the performance or safety requirements. Second, we may need to manipulate the NN structure so that we can express the properties in a format that can be verified by the SOTA NN verifiers. For example, $\alpha$-$\beta$-CROWN does not support NN input constraints. We add an extra output layer to connect the NN inputs and outputs in parallel (e.g., using ONNX \emph{Concat} operator). Third, we often need to tune the tool parameters. Each tool has its own executable parameters, which can have a major impact on the verifcation performance for a specific instance. Tuning the parameters is not a straightforward process. It often requires knowledge of the underlying verification algorithm. 
 
 
-\noindent{\bf Verification Results}: We applied the 3 tools on 11 properties to compare performance. The results are summerize in \ref{tab:results}. The first 9 properties are from the FTO application, the last 2 properties are from the RCL application. Overall, $\alpha$-$\beta$-CROWN is the most efficeint and always produced the correct results. Marabou2 generated incorrect results for two instances. And Venus2 generate incorrect result for one instance and aborted with an error message for two instances. All verification was executed on a Linux server with 128 AMD EPYC 7601 32-Core Processors, 503GB memory. The runtime is in seconds. The timeout is set to 2,000 seconds. We ran Marabou with Split and Conquer (SNC) mode and 4 parallel threads.
+\noindent{\bf Verification Results}: The verification results are summerize in Table \ref{tab:results}. The first 3 letters of the property name indicate the application. All verification was executed on a Linux server with 128 AMD EPYC 7601 32-Core Processors and 503GB memory. The runtime is in seconds. The timeout is set to 2,000 seconds. We ran Marabou2 with Split and Conquer (SNC) mode and 4 parallel threads. Overall, $\alpha$-$\beta$-CROWN is the most efficeint and produced the correct results on all instances. Marabou2 generated incorrect results for two instances. And Venus2 generated incorrect result for one instance and aborted for two instances. Since Venus2 does not support Tanh acitvation function and Marabou2 does not support the ONNX operator \emph{concat}, they could not verify some instances, which are indicated by the dashes in the table.
 
-Note that the VNNLIB parsers used by the tools do not support general linear constraints (i.e., $AX\le B$). They support a limited subset of constraints defined by the VNNCOMP benchmarks (e.g., variable compared to constant, comparing two variables). We modified the VNNLIB parser of $\alpha$-$\beta$-CROWN to verify properties that are encoded in general linear constraints. So we only used $\alpha$-$\beta$-CROWN to verify FQM and ROP properties.
+Note that the VNNLIB parsers used by the tools do not support general linear constraints (i.e., $AX\le B$). They support a limited subset of constraints defined by the VNNCOMP benchmarks (e.g., variable compared to constant, comparing two variables). We modified the VNNLIB parser of $\alpha$-$\beta$-CROWN to verify properties that are encoded in general linear constraints. 
 
 
 \begin{table} [htb]
@@ -24,27 +23,37 @@ Note that the VNNLIB parsers used by the tools do not support general linear con
 		\hline
 		Property & ABCROWN  & Marabou2  & Venus2 \\
 		\hline
-		maxfl 		& UNSAT (7.3)  	& UNSAT (493) 	& UNSAT (69.2)   \\
+		ftoMaxfl 		& UNSAT (7.3)  	& UNSAT (493) 	& UNSAT (69.2)   \\
 		\hline
-		maxflsat 	& SAT (3.0) 		& SAT (20) 		& \emph{Error} \\
+		ftoMaxflsat 	& SAT (3.0) 		& SAT (20) 		& \emph{Abort} \\
 		\hline
-		minfl 		& UNSAT (10.5) 	& UNSAT (1808) 	& UNSAT (30.3)  \\
+		ftoMinfl 		& UNSAT (10.5) 	& UNSAT (1808) 	& UNSAT (30.3)  \\
 		\hline
-		minflsat 	& SAT (3.1) 		& SAT (1448) 		& \emph{UNSAT (28.5)} \\
+		ftoMinflsat 	& SAT (3.1) 		& SAT (1448) 		& \emph{UNSAT (28.5)} \\
 		\hline
-		aboveStr 	& UNSAT (12.8) 	&\emph{SAT (795)}		& UNSAT (39.5)\\
+		ftoaboveStr 	& UNSAT (12.8) 	&\emph{SAT (795)}		& UNSAT (39.5)\\
 		\hline
-		down 		& UNSAT (6.5) 	& UNSAT (67) 		& UNSAT (25.6) \\
+		ftoDown 		& UNSAT (6.5) 	& UNSAT (67) 		& UNSAT (25.6) \\
 		\hline
-		straight 	& UNSAT (6.4) 	& UNSAT (0) 		& UNSAT (17.9) \\
+		ftoStr 	& UNSAT (6.4) 	& UNSAT (0) 		& UNSAT (17.9) \\
 		\hline
-		up 			& UNSAT (6.8) 	& UNSAT (357) 	& UNSAT (52.4)  \\
+		ftoUp 			& UNSAT (6.8) 	& UNSAT (357) 	& UNSAT (52.4)  \\
 		\hline
-		belowStr 	& UNSAT (24.2) 	& \emph{SAT (223)} 		&\emph{Error} \\
+		ftobelowStr 	& UNSAT (24.2) 	& \emph{SAT (223)} 		&\emph{Abort} \\
 		\hline
-		posOut 	& UNSAT (6.5) 	& UNSAT (0) 		& UNSAT (24.6) \\
+		rclOut 	& UNSAT (6.5) 	& UNSAT (0) 		& UNSAT (24.6) \\
 		\hline
-		maxFuel 	& SAT (1.8) 		& SAT (0) 		& SAT (1.0) \\
+		rclMaxFuel 	& SAT (1.8) 		& SAT (0) 		& SAT (1.0) \\
+		\hline
+		ropOrder 		& UNSAT (7.0) 	& \emph{Timeout} 			& - \\
+		\hline
+		ropRange 		& SAT (2.4) 		& \emph{Timeout} 			& - \\
+		\hline
+		ropMono 		& SAT (0.5) 		& - 						& - \\
+		\hline
+		fqmAcc1 		& UNSAT (4) 		& - 						& - \\
+		\hline
+		fqmAcc2 		& UNSAT (12) 		& - 						& - \\
 		\hline
 	\end{tabular}
 

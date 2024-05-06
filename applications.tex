@@ -1,6 +1,6 @@
 We have evaluated the tools on a variety of ML-based systems.  In some cases, the system used ML to implement new aircraft functionality.  In other cases, the goal is to use a neural network (NN) to create a more time- or memory-efficient implementation of an existing function.  ML-based functions used for evaluation include:
 
-\noindent{\bf Remaining Useful Life (RUL)}:  A convolutional neural network (CNN) uses vibration measurements from rotating equipment to estimate time until maintenance or replacement.  A public version (with training data and requirements to be verified) was made available as a benchmark for the 2022 VNN-COMP.
+\noindent{\bf Remaining Useful Life (RUL)~\cite{rul}}:  A convolutional neural network (CNN) uses vibration measurements from rotating equipment to estimate time until maintenance or replacement.  A public version (with training data and requirements to be verified) was made available as a benchmark for the 2022 VNN-COMP.
 
 
 \noindent{\bf Recommended Cruise Level (RCL)}:  Computes time and fuel optimal altitude as a recommendation to the pilot, replacing a complex optimization calculation and saving CPU time. The NN is a fully-connected, feed-forward, rectified linear unit (ReLU) NN. It has 5 inputs and 2 outputs (i.e., time and fuel cost). It has 5 hidden layers, each with 10 neurons.

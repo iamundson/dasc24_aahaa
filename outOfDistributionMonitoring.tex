@@ -56,8 +56,8 @@ The ODD within the DNN framework draws inspiration from autonomous vehicles and 
 %Next subsection illustrate this methodology through an illustrative example.
 
 
-We illustrate this methodology with the analysis of OOD for the ROAAS model. Here, our primary objective is to obtain the generalization performance parameters. The Runway Overrun Awareness and Alerting System (ROAAS) is a flight deck alerting system providing crews with situational awareness about the possibility of exceeding the end of the runway during aircraft approach and landing. The ROASS DNN model comprises ten inputs and three outputs. The objective is to determine the performance parameters 
-$(\delta, \epsilon)$ to aid in discerning whether a point is OOD. The computation of these performance parameters unfolds in two steps: the first step involves utilizing a line of the dataset, while the second step entails employing the convex hull of datasets. This phase involves the computation of $\delta$ defined as the maximum of all minimum distances. Fig~\ref{fig:deltaR} posits the value of $\delta$ for ROASS training data. 
+We illustrate this methodology with the analysis of OOD for the Runway Overrun Awareness and Alerting System (ROAAS) specified in ED-250. Here, our primary objective is to obtain the generalization performance parameters. ROAAS is a flight deck alerting system providing crews with situational awareness about the possibility of exceeding the end of the runway during aircraft approach and landing. The ROAAS DNN model comprises ten inputs and three outputs. The objective is to determine the performance parameters 
+$(\delta, \epsilon)$ to aid in discerning whether a point is OOD. The computation of these performance parameters unfolds in two steps: the first step involves utilizing a line of the dataset, while the second step entails employing the convex hull of datasets. This phase involves the computation of $\delta$ defined as the maximum of all minimum distances. Fig~\ref{fig:deltaR} posits the value of $\delta$ for ROAAS training data. 
 \begin{figure}
 %\centering
 \begin{subfigure}{.24\textwidth}

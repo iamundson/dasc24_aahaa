@@ -10,12 +10,6 @@ Venus \cite{venus} formulates a NN verification problem as a mixed-integer-linea
 
 \noindent{\bf Verification Process}: Our verification process often consisted of three main steps. First, we formulated a number of formal properties, which were derived from performance or safety requirements. Second, we manipulated the NN structure so that we can express the properties in a format that can be verified by the NN verifiers. For example, $\alpha$-$\beta$-CROWN does not support general linear constraints on NN inputs. We added an extra output layer to connect the NN inputs and outputs in parallel, using ONNX \emph{Concat} operator. Third, we tuned the tool executable parameters. Each tool has its own parameters, which could have a major impact on the verification performance for a specific instance. Tuning the parameters is not a straightforward process; it often requires knowledge of the underlying verification algorithm. 
 
-
-\noindent{\bf Verification Results}: The verification results are summarized in Table~\ref{tab:results}. The first three letters of the property name indicate the application. Verification was executed on a Linux server with 128 AMD EPYC 7601 32-Core Processors and 503GB memory. The runtime is in seconds. The timeout is set to 2000 seconds. We ran Marabou2 with Split and Conquer (SNC) mode and four parallel threads. Overall, $\alpha$-$\beta$-CROWN was the most efficient and produced the correct results on all instances. Marabou2 generated incorrect results for two instances. And Venus2 generated incorrect results for one instance and aborted for two instances. Since Venus2 does not support the \emph{tanh} acitvation function and Marabou2 does not support the ONNX operator \emph{concat}, they could not verify some instances, which are indicated by the dashes in the table.
-
-Note that the VNNLIB parsers used by the tools do not support general linear constraints (i.e., $AX\le B$). They support a limited subset of constraints defined by the VNNCOMP benchmarks (e.g., variable compared to constant, comparing two variables). We modified the VNNLIB parser of $\alpha$-$\beta$-CROWN to verify properties that are encoded as general linear constraints. 
-
-
 \begin{table} [htb]
 	\centering
   	\caption{Verification Results} \label{tab:results}
@@ -56,7 +50,17 @@ Note that the VNNLIB parsers used by the tools do not support general linear con
 		fqmAcc2 		& UNSAT (12) 		& - 						& - \\
 		\hline
 	\end{tabular}
-
-
 \end{table}
+
+\noindent{\bf Verification Results}: The verification results are summarized in Table~\ref{tab:results}. The first three letters of the property name indicate the application.
+A result of UNSAT means the property is proved. And a result of SAT means a counterexample was found. The runtime is in seconds. The timeout is set to 2000 seconds.
+The verification was executed on a Linux server with 128 AMD EPYC 7601 32-Core Processors and 503GB memory. We ran Marabou2 with Split and Conquer (SNC) mode and four parallel threads. 
+Since Venus2 does not support the \emph{tanh} acitvation function and Marabou2 does not support the ONNX operator \emph{concat}, they could not verify some instances, which are indicated by the dashes in the table.
+
+Overall, $\alpha$-$\beta$-CROWN was the most efficient and produced the correct results on all instances. Marabou2 generated incorrect results for two instances. And Venus2 generated incorrect results for one instance and aborted for two instances. Our preliminary investigation in the incorrect or aborting cases indicates tool implementation issues.
+
+Note that the VNNLIB parsers used by the tools do not support general linear constraints (i.e., $AX\le B$). They support a limited subset of constraints defined by the VNNCOMP benchmarks (e.g., variable compared to constant, comparing two variables). We modified the VNNLIB parser of $\alpha$-$\beta$-CROWN to verify properties that are encoded as general linear constraints. 
+
+
+
 

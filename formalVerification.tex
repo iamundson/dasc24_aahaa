@@ -52,7 +52,7 @@ Venus \cite{venus} formulates a NN verification problem as a mixed-integer-linea
 	\end{tabular}
 \end{table}
 
-\noindent{\bf Verification Results}: The verification results are summarized in Table~\ref{tab:results}. The first three letters of the property name indicate the application.
+\noindent{\bf Verification Results}: The verification results are summarized in Table~\ref{tab:results}. The first three letters of the property name indicate the application (FTO, RCL, ROP, or FQM).
 A result of UNSAT means the property is proved. And a result of SAT means a counterexample was found. The runtime is in seconds. The timeout is set to 2000 seconds.
 The verification was executed on a Linux server with 128 AMD EPYC 7601 32-Core Processors and 503GB memory. We ran Marabou2 with Split and Conquer (SNC) mode and four parallel threads. 
 Since Venus2 does not support the \emph{tanh} acitvation function and Marabou2 does not support the ONNX operator \emph{concat}, they could not verify some instances, which are indicated by the dashes in the table.
